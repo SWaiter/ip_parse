@@ -5,13 +5,13 @@
 
 ## 创建自定义函数的步骤
 - 1.创建java类 extends org.apache.hadoop.hive.sql.exec.UDF
-- 
+ 
 - 2.需要实现evalute函数，evalute函数支持重载
-- 
+
 - 3.把程序打包放在机器上
-- 
+ 
 - 4.进入hive客户端，上传jar包到hdfs
-- 
+
 - 5.创建duf函数
 
 ```hql
@@ -24,4 +24,14 @@ Time taken: 0.115 seconds, Fetched: 1 row(s)
 hive (default)> select get_location_ip('61.174.15.215','en');
 OK
 Asia|CN|1814991|China|Zhejiang|null|null|120.1614|30.2936|null
+```
+注意事项：
+
+java程序打成jar包后，经常碰到一些资源文件找不到等问题
+
+可以如下方式解决
+```java
+InputStream is= IPParse.class.getResourceAsStream("/"+Constants.geoIPFile);
+            reader = new DatabaseReader.Builder(is).build();
+            
 ```
